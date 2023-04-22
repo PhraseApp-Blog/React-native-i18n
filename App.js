@@ -21,7 +21,7 @@ const weatherIcons = {
 
 export default function App() {
   // const [daily, setDaily] = useState([]);
-  const daily = ww[0];
+  const daily = weatherData[0];
   // const json = JSON.parse(newS)
   // console.log(newS)
   // setDaily(newS.daily)
@@ -135,103 +135,8 @@ const Temp = styled(Text)`
   color: white;
   margin-top: 20px;
 `;
-const wD = [
-  {
-    id: 1,
-    city: "San Francisco",
-    temperature: 60,
-    weather: "Sunny",
-    icon: "☀️",
-  },
-  {
-    id: 2,
-    city: "New York",
-    temperature: 50,
-    weather: "Cloudy",
-    icon: "☁️",
-  },
-  {
-    id: 3,
-    city: "London",
-    temperature: 55,
-    weather: "Rainy",
-    icon: "🌧️",
-  },
-];
-let x = `{
-  "lat": 51.5074,
-  "lon": -0.1278,
-  "timezone": "Europe/London",
-  "timezone_offset": 0,
-  "daily": [
-    {
-      "dt": 1649134800,
-      "sunrise": 1649124449,
-      "sunset": 1649173486,
-      "moonrise": 1649109660,
-      "moonset": 1649145960,
-      "moon_phase": 0.01,
-      "temp": {
-        "day": 7.6,
-        "min": 3.3,
-        "max": 9.2,
-        "night": 5.5,
-        "eve": 7.6,
-        "morn": 3.3
-      },
-      "feels_like": {
-        "day": 3.73,
-        "night": 0.41,
-        "eve": 3.73,
-        "morn": 0.41
-      },
-      "pressure": 1021,
-      "humidity": 72,
-      "dew_point": 2.12,
-      "wind_speed": 4.15,
-      "wind_deg": 255,
-      "wind_gust": 6.44,
-      "weather": [
-        {
-          "id": 803,
-          "main": "Clouds",
-          "description": "broken clouds",
-          "icon": "04d"
-        }
-      ],
-      "clouds": 75,
-      "pop": 0,
-      "uvi": 0.33
-    },
-  ]
-}`;
 
-let userStr = '{"name":"Sammy","email":"sammy@example.com","plan":"Pro"}'
-
-let wd = [
-  {
-    id: 1,
-    city: "San Francisco",
-    temperature: 60,
-    weather: "Sunny",
-    icon: "☀️",
-  },
-  {
-    id: 2,
-    city: "New York",
-    temperature: 50,
-    weather: "Cloudy",
-    icon: "☁️",
-  },
-  {
-    id: 3,
-    city: "London",
-    temperature: 55,
-    weather: "Rainy",
-    icon: "🌧️",
-  },
-];
-const ww = {
+const weatherData = {
   lat: 51.5074,
   lon: -0.1278,
   timezone: "Europe/London",
