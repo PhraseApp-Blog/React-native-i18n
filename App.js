@@ -3,8 +3,44 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
 import styled from "styled-components/native";
 import { Fontisto } from '@expo/vector-icons';
+import * as Localization from 'expo-localization';
+import { I18n } from 'i18n-js'
+import { translations } from './localisation';
 
-const backgrounds = ["#00b894", "#00cec9", "#0984e3", "#e17055", "#2d3436"];
+
+export default function App() {
+  // const [location, setLocation] = useState([]);
+  const daily = dailyWeatherMock;
+  const i18n = new I18n(translations)
+  i18n.locale = Localization.locale
+  i18n.enableFallback = true
+  i18n.defaultLocale = "en";
+  let [locale, setLocale] = useState(Localization.locale);
+
+  return (
+    <>
+      <Container>
+        <TopContainer>
+          <Label>{locale}</Label>
+          <Greeting>{i18n.t('greeting')}</Greeting>
+        </TopContainer>
+        <StatusBar style="dark" />
+        <WeatherContainer >
+          <Fontisto
+            name={weatherIcons[daily?.main] ? weatherIcons[daily?.main] : "cloudy-gusts"}
+            size={150}
+            color="white"
+          />
+          <WeatherMain>{daily?.main}</WeatherMain>
+          <WeatherDesc>{daily?.description}</WeatherDesc>
+          <Temp>{Math.ceil(daily?.current)}°</Temp>
+        </WeatherContainer>
+        <BottomLabel>{i18n.t('subscribe')}</BottomLabel>
+      </Container>
+    </>
+  );
+}
+const backgrounds = ["#00b894", "#00cec9", "#e17055", "#2d3436"];
 const { width, height } = Dimensions.get("window");
 const weatherIcons = {
   Clear: "day-sunny",
@@ -24,35 +60,6 @@ const greeting = {
 
 
 
-
-export default function App() {
-  // const [daily, setDaily] = useState([]);
-  const [location, setLocation] = useState([]);
-  const daily = dailyWeatherMock;
-
-  return (
-    <>
-      <Container>
-        <TopContainer>
-          <Greeting>{"Hello"}</Greeting>
-        </TopContainer>
-      <StatusBar style="dark" />
-      <WeatherContainer >
-        <Fontisto
-          name={weatherIcons[daily?.main] ? weatherIcons[daily?.main] : "cloudy-gusts"}
-          size={150}
-          color="white"
-        />
-        <WeatherMain>{daily?.main}</WeatherMain>
-        <WeatherDesc>{daily?.description}</WeatherDesc>
-        <Temp>{Math.ceil(daily?.current)}°</Temp>
-      </WeatherContainer>
-      <BottomLabel>{"Buy premium version for 14.99$"}</BottomLabel>
-      </Container>
-    </>
-  );
-}
-
 const dailyWeatherMock = {
   lat: 51.5074,
   lon: -0.1278,
@@ -64,8 +71,7 @@ const dailyWeatherMock = {
   min: 3.3,
   current: 6,
   dt: 1649159040,
-  unit : "metric"
-
+  unit: "metric"
 }
 
 const styles = StyleSheet.create({
@@ -104,10 +110,10 @@ const WeatherContainer = styled(View)`
   width: ${width}px;
 `;
 
-const Dates = styled(Text)`
-  font-size: 30px;
+const Label = styled(Text)`
+  font-size: 23px;
   color: white;
-  margin-top: 20px;
+  margin-top: 10px;
 `;
 
 const City = styled(Text)`

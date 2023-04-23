@@ -12,8 +12,11 @@
     "@expo-google-fonts/pacifico": "^0.2.3",
     "expo": "~48.0.11",
     "expo-font": "~11.1.1",
+    "expo-localization": "^14.1.1",
     "expo-status-bar": "~1.4.4",
+    "i18n-js": "^4.2.3",
     "react": "18.2.0",
+    "react-intl": "^6.4.1",
     "react-native": "0.71.6",
     "styled-components": "^5.3.9"
   },
