@@ -31,16 +31,17 @@ export default function App() {
             size={150}
             color="white"
           />
-          <WeatherMain>{daily?.main}</WeatherMain>
-          <WeatherDesc>{daily?.description}</WeatherDesc>
-          <Temp>{Math.ceil(daily?.current)}°</Temp>
+      
+          <WeatherMain>{i18n.t(daily?.main)}</WeatherMain>
+          <WeatherDesc>{i18n.t(daily?.description)}</WeatherDesc>
+          <Temp>6°</Temp>
         </WeatherContainer>
         <BottomLabel>{i18n.t('subscribe')}</BottomLabel>
       </Container>
     </>
   );
 }
-const backgrounds = ["#00b894", "#00cec9", "#e17055", "#2d3436"];
+const backgrounds = [ "#00cec9",];
 const { width, height } = Dimensions.get("window");
 const weatherIcons = {
   Clear: "day-sunny",
@@ -61,17 +62,14 @@ const greeting = {
 
 
 const dailyWeatherMock = {
-  lat: 51.5074,
-  lon: -0.1278,
-  timezone: "Europe/London",
-  main: "Clouds",
-  description: "broken clouds",
+  main: "clouds",
+  description: "broken_clouds",
   icon: "04n",
-  max: 9.2,
-  min: 3.3,
-  current: 6,
-  dt: 1649159040,
-  unit: "metric"
+  maxInCelsius: 9.2,
+  maxInFahrenheit: 9.2,
+  currentInCelsius: 6,
+  currentInFahrenheit:6,
+  price:14.99,
 }
 
 const styles = StyleSheet.create({
