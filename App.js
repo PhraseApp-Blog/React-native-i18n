@@ -9,13 +9,13 @@ import { translations } from './localisation';
 
 
 export default function App() {
-  // const [location, setLocation] = useState([]);
+  let [locale, setLocale] = useState(Localization.locale);
   const daily = dailyWeatherMock;
   const i18n = new I18n(translations)
-  i18n.locale = Localization.locale
+  i18n.locale = locale
   i18n.enableFallback = true
   i18n.defaultLocale = "en";
-  let [locale, setLocale] = useState(Localization.locale);
+  const dailyPrice = daily.price.toLocaleString(locale)
 
   return (
     <>
@@ -31,17 +31,19 @@ export default function App() {
             size={150}
             color="white"
           />
-      
           <WeatherMain>{i18n.t(daily?.main)}</WeatherMain>
           <WeatherDesc>{i18n.t(daily?.description)}</WeatherDesc>
           <Temp>6°</Temp>
+          <MaximumTemp>{i18n.t("temperature", {count: daily.maxInCelsius})}</MaximumTemp>
+          <WeatherDesc>{i18n.t(daily?.description)}</WeatherDesc>
         </WeatherContainer>
-        <BottomLabel>{i18n.t('subscribe')}</BottomLabel>
+        <BottomLabel>{i18n.t('subscribe', {price : dailyPrice})}</BottomLabel>
+
       </Container>
     </>
   );
 }
-const backgrounds = [ "#00cec9",];
+const backgrounds = ["#00cec9",];
 const { width, height } = Dimensions.get("window");
 const weatherIcons = {
   Clear: "day-sunny",
@@ -65,11 +67,11 @@ const dailyWeatherMock = {
   main: "clouds",
   description: "broken_clouds",
   icon: "04n",
-  maxInCelsius: 9.2,
+  maxInCelsius: 1,
   maxInFahrenheit: 9.2,
   currentInCelsius: 6,
-  currentInFahrenheit:6,
-  price:14.99,
+  currentInFahrenheit: 6,
+  price: 123565,
 }
 
 const styles = StyleSheet.create({
@@ -131,7 +133,7 @@ const Greeting = styled(Text)`
 
 const BottomLabel = styled(Text)`
 margin-top: 20px;
-  font-size: 18px;
+  font-size: 16px;
   color: white;
   flex: 1;
   align-items: center;
@@ -156,6 +158,10 @@ const Temp = styled(Text)`
   font-size: 75px;
   color: white;
   margin-top: 20px;
+`;
+const MaximumTemp = styled(Text)`
+  font-size: 18px;
+  color: white;
 `;
 
 

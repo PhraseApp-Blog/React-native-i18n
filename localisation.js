@@ -1,19 +1,28 @@
 
 const translations = {
-    en : {
+    en: {
         greeting: "Hello",
-        subscribe : "Buy premium version for 14.99$",
+        subscribe: "Buy premium version for %{price}",
         clouds: "Clouds",
-        broken_clouds: "Broken Clouds"
-    
+        broken_clouds: "Broken Clouds",
+        maximum_temp: "Maximum temperature : %{degree}",
+        temperature: {
+            one: "%{count} degree",
+            other: "%{count} degrees",
+          }
     },
 
-    de :{
+    de: {
         greeting: "Hallo",
-        subscribe: "HoKaufen Sie die Premium-Version für 14.99$",
+        subscribe: "HoKaufen Sie die Premium-Version für %{price}",
         clouds: "Wolken",
-        broken_clouds: "Aufgelockert bewölkt"
+        broken_clouds: "Aufgelockert bewölkt",
+        maximum_temp: "Maximum temperature : %{degree}",
+        temperature: {
+            one: "%{count} degree",
+            other: "%{count} degrees",
+          }
     }
 
 }
-export {  translations };
+export { translations };
