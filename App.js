@@ -11,6 +11,8 @@ import BlankSpacer from "react-native-blank-spacer";
 export default function App() {
 
   let [locale, setLocale] = useState(Localization.locale);
+  let [isDarkModeEnabled, setIsDarkModelEnabled] = useState(true);
+
   I18nManager.allowRTL(true)
   I18nManager.forceRTL(true);
   const daily = dailyWeatherMock;
@@ -33,6 +35,7 @@ export default function App() {
   const today = new Date()
   const formattedDate = today.toLocaleDateString(locale,)
 
+
   let isRTL = localProperties.textDirection === 'rtl'
   console.log(isRTL)
   console.log(localProperties.textDirection)
@@ -44,8 +47,7 @@ export default function App() {
 
   return (
     <>
-      <Container>
-
+      <Container bgColor={((isDarkModeEnabled) ? '#0A0708' : '#00cec9')}>
         <TopContainer>
           <Label>{locale}</Label>
           <DateFormatted>{formattedDate}</DateFormatted>
@@ -106,19 +108,19 @@ const dailyWeatherMock = {
   price: 123565,
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+// });
 
 const Container = styled(View)`
   flex: 1;
   align-items: center;
-  background-color: ${backgrounds[Math.floor(Math.random() * backgrounds.length)]};
+  background-color: ${props => props.bgColor};
 `;
 
 const TopContainer = styled(View)`
