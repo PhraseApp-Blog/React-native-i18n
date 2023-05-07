@@ -29,6 +29,10 @@ export default function App() {
     currentTemperature = i18n.t("current_temp_in_fahrenheit", { degree: daily.currentInFahrenheit })
   }
   let currencySymbol = localProperties.currencySymbol
+
+  const today = new Date()
+  const formattedDate = today.toLocaleDateString(locale,)
+
   let isRTL = localProperties.textDirection === 'rtl'
   console.log(isRTL)
   console.log(localProperties.textDirection)
@@ -44,6 +48,7 @@ export default function App() {
 
         <TopContainer>
           <Label>{locale}</Label>
+          <DateFormatted>{formattedDate}</DateFormatted>
           <Greeting>{i18n.t('greeting')}</Greeting>
         </TopContainer>
         <StatusBar style="dark" />
@@ -120,6 +125,7 @@ const TopContainer = styled(View)`
   flex: 1;
   justify-content: center;
   align-items: center;
+  margin-top: 40px;
 `;
 // const BackContainer = styled(View)`
 //   flex: 1;
@@ -139,6 +145,7 @@ const WeatherContainer = styled(View)`
   justify-content: center;
   align-items: center;
   width: ${width}px;
+  margin-top: 40px;
 `;
 
 const Label = styled(Text)`
@@ -177,7 +184,13 @@ margin-top: 20px;
 const WeatherMain = styled(Text)`
   font-size: 50px;
   color: white;
-  margin-top: 10px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+`;
+const DateFormatted = styled(Text)`
+  font-size: 30px;
+  color: white;
+  margin-top: 2px;
   margin-bottom: 2px;
 `;
 
