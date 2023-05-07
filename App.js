@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView, Dimensions, Button, I18nManager } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions, Button, I18nManager, Switch } from 'react-native';
 import styled from "styled-components/native";
 import { Fontisto } from '@expo/vector-icons';
 import * as Localization from 'expo-localization';
@@ -13,8 +13,8 @@ export default function App() {
   let [locale, setLocale] = useState(Localization.locale);
   let [isDarkModeEnabled, setIsDarkModelEnabled] = useState(true);
 
-  I18nManager.allowRTL(true)
-  I18nManager.forceRTL(true);
+  // I18nManager.allowRTL(true)
+  // I18nManager.forceRTL(true);
   const daily = dailyWeatherMock;
   const i18n = new I18n(translations)
   i18n.locale = locale
@@ -39,15 +39,33 @@ export default function App() {
   let isRTL = localProperties.textDirection === 'rtl'
   console.log(isRTL)
   console.log(localProperties.textDirection)
-  if (!I18nManager.isRTL) {
-    console.log(I18nManager.isRTL)
-    I18nManager.forceRTL(true);
-    RNRestart.Restart();
-  }
+  // if (!I18nManager.isRTL) {
+  //   console.log(I18nManager.isRTL)
+  //   I18nManager.forceRTL(true);
+  //   RNRestart.Restart();
+  // }
 
   return (
     <>
       <Container bgColor={((isDarkModeEnabled) ? '#0A0708' : '#00cec9')}>
+        <Text style={{
+          color: "white",
+          alignSelf: 'flex-start',
+          marginTop: 30,
+          flexDirection: 'row',
+          paddingEnd: 10
+        }}>{((isDarkModeEnabled) ? 'Dark' : 'Light')}</Text>
+        <Switch value={isDarkModeEnabled}
+          onValueChange={(value) => setIsDarkModelEnabled(value)}
+          style={{
+            alignSelf: 'flex-start',
+            marginTop: 2,
+            flexDirection: 'row',
+            paddingEnd: 40
+          }}
+        >
+
+        </Switch>
         <TopContainer>
           <Label>{locale}</Label>
           <DateFormatted>{formattedDate}</DateFormatted>
@@ -150,10 +168,17 @@ const WeatherContainer = styled(View)`
   margin-top: 40px;
 `;
 
+const ModeLabel = styled(Text)`
+  font-size: 20px;
+  color: white;
+  margin-top: 30px;
+  align-items: flex-start;
+`;
+
 const Label = styled(Text)`
   font-size: 23px;
   color: white;
-  margin-top: 10px;
+  margin-top: 2px;
 `;
 
 const City = styled(Text)`
