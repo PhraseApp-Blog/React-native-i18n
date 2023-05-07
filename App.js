@@ -1,25 +1,47 @@
 import React, { useEffect, useState } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView, Dimensions } from 'react-native';
+import { StyleSheet, Text, View, ScrollView, Dimensions, Button, I18nManager } from 'react-native';
 import styled from "styled-components/native";
 import { Fontisto } from '@expo/vector-icons';
 import * as Localization from 'expo-localization';
 import { I18n } from 'i18n-js'
 import { translations } from './localisation';
-
+import BlankSpacer from "react-native-blank-spacer";
 
 export default function App() {
+
   let [locale, setLocale] = useState(Localization.locale);
+  I18nManager.allowRTL(true)
+  I18nManager.forceRTL(true);
   const daily = dailyWeatherMock;
   const i18n = new I18n(translations)
   i18n.locale = locale
   i18n.enableFallback = true
   i18n.defaultLocale = "en";
+
   const dailyPrice = daily.price.toLocaleString(locale)
+  let localProperties = Localization.getLocales()[0]
+  let measurementSystem = localProperties.measurementSystem
+  var currentTemperature;
+  if (measurementSystem === `metric`) {
+    currentTemperature = i18n.t("current_temp_in_celsius", { degree: daily.currentInCelsius })
+  } else {
+    currentTemperature = i18n.t("current_temp_in_fahrenheit", { degree: daily.currentInFahrenheit })
+  }
+  let currencySymbol = localProperties.currencySymbol
+  let isRTL = localProperties.textDirection === 'rtl'
+  console.log(isRTL)
+  console.log(localProperties.textDirection)
+  if (!I18nManager.isRTL) {
+    console.log(I18nManager.isRTL)
+    I18nManager.forceRTL(true);
+    RNRestart.Restart();
+  }
 
   return (
     <>
       <Container>
+
         <TopContainer>
           <Label>{locale}</Label>
           <Greeting>{i18n.t('greeting')}</Greeting>
@@ -33,12 +55,17 @@ export default function App() {
           />
           <WeatherMain>{i18n.t(daily?.main)}</WeatherMain>
           <WeatherDesc>{i18n.t(daily?.description)}</WeatherDesc>
-          <Temp>6°</Temp>
-          <MaximumTemp>{i18n.t("temperature", {count: daily.maxInCelsius})}</MaximumTemp>
+          <Temp>{currentTemperature}</Temp>
+          <MaximumTemp>{i18n.t("temperature", { count: daily.maxInCelsius })}</MaximumTemp>
           <WeatherDesc>{i18n.t(daily?.description)}</WeatherDesc>
         </WeatherContainer>
-        <BottomLabel>{i18n.t('subscribe', {price : dailyPrice})}</BottomLabel>
-
+        <BottomLabel>{i18n.t('subscribe', { price: currencySymbol + dailyPrice })}</BottomLabel>
+        <BottomLabel>
+          <BlankSpacer width={50} />
+          <Button onPress={() => setLocale("en")} title="English" color="#841584" />
+          <BlankSpacer width={50} />
+          <Button onPress={() => setLocale("de")} title="German" color="#841584" />
+        </BottomLabel>
       </Container>
     </>
   );
@@ -67,10 +94,10 @@ const dailyWeatherMock = {
   main: "clouds",
   description: "broken_clouds",
   icon: "04n",
-  maxInCelsius: 1,
+  maxInCelsius: 8,
   maxInFahrenheit: 9.2,
-  currentInCelsius: 6,
-  currentInFahrenheit: 6,
+  currentInCelsius: 20,
+  currentInFahrenheit: 68,
   price: 123565,
 }
 
@@ -94,6 +121,10 @@ const TopContainer = styled(View)`
   justify-content: center;
   align-items: center;
 `;
+// const BackContainer = styled(View)`
+//   flex: 1;
+//   align-items: left;
+// `;
 
 const Region = styled(Text)`
   font-size: 25px;

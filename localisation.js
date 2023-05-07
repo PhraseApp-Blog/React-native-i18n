@@ -6,6 +6,8 @@ const translations = {
         clouds: "Clouds",
         broken_clouds: "Broken Clouds",
         maximum_temp: "Maximum temperature : %{degree}",
+        current_temp_in_celsius: "%{degree}°C",
+        current_temp_in_fahrenheit: "%{degree}°F",
         temperature: {
             one: "%{count} degree",
             other: "%{count} degrees",
