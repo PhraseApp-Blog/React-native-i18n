@@ -10,10 +10,11 @@ import BlankSpacer from "react-native-blank-spacer";
 
 export default function App() {
 
+
   let [locale, setLocale] = useState(Localization.locale);
   let [isDarkModeEnabled, setIsDarkModelEnabled] = useState(true);
 
-  // I18nManager.allowRTL(true)
+  I18nManager.allowRTL(true)
   // I18nManager.forceRTL(true);
   const daily = dailyWeatherMock;
   const i18n = new I18n(translations)
@@ -38,31 +39,50 @@ export default function App() {
 
   let isRTL = localProperties.textDirection === 'rtl'
   console.log(isRTL)
-  console.log(localProperties.textDirection)
-  // if (!I18nManager.isRTL) {
-  //   console.log(I18nManager.isRTL)
-  //   I18nManager.forceRTL(true);
-  //   RNRestart.Restart();
-  // }
+  if (isRTL) {
+    I18nManager.allowRTL(true)
+    // I18nManager.forceRTL(true);
+    I18nManager.forceRTL(true);
+    // RNRestart.Restart();
+
+  }
+  const rtlText = isRTL && { textAlign: 'right', writingDirection: 'rtl' };
+  const rtlView = isRTL && { flexDirection: 'row-reverse' };
 
   return (
     <>
+         <View style={[{ flexDirection: 'row', marginBottom: 40 }, rtlView]}>
+          <View style={{ height: 40, width: 40, backgroundColor: '#db4437' }} />
+          <View style={{ height: 40, width: 40, backgroundColor: '#0f9d58' }} />
+          <View style={{ height: 40, width: 40, backgroundColor: '#4285f4' }} />
+        </View>
       <Container bgColor={((isDarkModeEnabled) ? '#0A0708' : '#00cec9')}>
-        <Text style={{
-          color: "white",
-          alignSelf: 'flex-start',
-          marginTop: 30,
-          flexDirection: 'row',
-          paddingEnd: 10
-        }}>{((isDarkModeEnabled) ? 'Dark' : 'Light')}</Text>
+        <AppHeader>
+          <Text style={{
+            width: '100%',
+            color: 'white'
+          }}>
+            {((isDarkModeEnabled) ? i18n.t('dark_mode') : i18n.t('light_mode'))}
+          </Text>
+        </AppHeader>
+        {/* <ThemeContainer>
+
+          <Label>
+            {((isDarkModeEnabled) ? i18n.t('dark_mode') : i18n.t('light_mode'))}
+          </Label>
+          <Switch value={isDarkModeEnabled}
+            onValueChange={(value) => setIsDarkModelEnabled(value)}
+            style={{
+              marginTop: 2,
+              alignSelf: 'flex-end',
+            }}
+          >
+          </Switch>
+        </ThemeContainer> */}
+
         <Switch value={isDarkModeEnabled}
           onValueChange={(value) => setIsDarkModelEnabled(value)}
-          style={{
-            alignSelf: 'flex-start',
-            marginTop: 2,
-            flexDirection: 'row',
-            paddingEnd: 40
-          }}
+          style={[{ flexDirection: 'row', marginBottom: 40 , alignSelf: 'flex-start'}]}
         >
 
         </Switch>
@@ -140,12 +160,31 @@ const Container = styled(View)`
   align-items: center;
   background-color: ${props => props.bgColor};
 `;
+const ThemeContainer = styled(View)`
+  flex: 1;
+  width: 100%;
+  margin-top: 40px;
+  flex-direction: row-reverse;
+  background-color: blue;
+  align-items: center;
+
+`;
+
+const AppHeader = styled(View)`
+  flex: 1;
+  width: 100%;
+  margin-top: 40px;
+  flex-direction: row-reverse;
+  background-color: blue;
+  align-items: center;
+
+`;
 
 const TopContainer = styled(View)`
   flex: 1;
   justify-content: center;
   align-items: center;
-  margin-top: 40px;
+  // margin-top: 40px;
 `;
 // const BackContainer = styled(View)`
 //   flex: 1;

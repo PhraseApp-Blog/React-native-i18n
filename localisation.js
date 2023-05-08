@@ -11,7 +11,9 @@ const translations = {
         temperature: {
             one: "%{count} degree",
             other: "%{count} degrees",
-          }
+          },
+          dark_mode: "Dark",
+          light_mode: "Light",
     },
 
     de: {
@@ -23,8 +25,17 @@ const translations = {
         temperature: {
             one: "%{count} degree",
             other: "%{count} degrees",
-          }
-    }
+          },
+          dark_mode: "dunkel",
+          light_mode: "Licht",
+    },
+    ur: {
+
+        dark_mode: "نص وهمي",
+        light_mode: "نص وهمي",
+     
+      
+      }
 
 }
 export { translations };
