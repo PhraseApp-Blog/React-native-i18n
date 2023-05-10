@@ -54,10 +54,7 @@ export default function App() {
       <Container bgColor={((isDarkModeEnabled) ? '#0A0708' : '#00cec9')}>
         <View style={[{ flexDirection: 'row', }, rtlView]}>
           <View style={[{ flexDirection: 'column', }]}>
-            <Text style={{
-              width: '100%',
-              color: 'white'
-            }}>
+            <Text style={{  color: 'white' }}>
               {((isDarkModeEnabled) ? i18n.t('dark_mode') : i18n.t('light_mode'))}
             </Text>
 
