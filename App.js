@@ -53,11 +53,10 @@ export default function App() {
     <>
       <Container bgColor={((isDarkModeEnabled) ? '#0A0708' : '#00cec9')}>
         <View style={[{ flexDirection: 'row', }, rtlView]}>
-          <View style={[{ flexDirection: 'column', }]}>
-            <Text style={{  color: 'white' }}>
+          <View style={[{ flexDirection: 'column', marginTop: 50, marginStart: 10 }]}>
+            <Text style={{ color: 'white', marginStart: 10 }}>
               {((isDarkModeEnabled) ? i18n.t('dark_mode') : i18n.t('light_mode'))}
             </Text>
-
             <Switch value={isDarkModeEnabled}
               onValueChange={(value) => setIsDarkModelEnabled(value)}
               style={[{ flexDirection: 'row', marginBottom: 40, alignSelf: 'flex-start' }]}
@@ -162,7 +161,8 @@ const Footer = styled(View)`
   justify-content: center;
   align-items: center;
   width: ${width}px;
-  margin-top: 40px;
+  margin-top: 10px;
+  margin-bottom: 30px;
   flex-direction: row;
 `;
 
