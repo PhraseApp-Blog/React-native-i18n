@@ -51,20 +51,46 @@ export default function App() {
 
   return (
     <>
-         <View style={[{ flexDirection: 'row', marginBottom: 40 }, rtlView]}>
+
+      <Container bgColor={((isDarkModeEnabled) ? '#0A0708' : '#00cec9')}>
+        <View style={[{ flexDirection: 'row', }, rtlView]}>
+          <View style={[{ flexDirection: 'column', }]}>
+            <Text style={{
+              width: '100%',
+              color: 'white'
+            }}>
+              {((isDarkModeEnabled) ? i18n.t('dark_mode') : i18n.t('light_mode'))}
+            </Text>
+
+            <Switch value={isDarkModeEnabled}
+              onValueChange={(value) => setIsDarkModelEnabled(value)}
+              style={[{ flexDirection: 'row', marginBottom: 40, alignSelf: 'flex-start' }]}
+            >
+
+            </Switch>
+            {/* <View style={{ height: 40, width: 40, backgroundColor: '#db4437' }} />
+            <View style={{ height: 40, width: 40, backgroundColor: '#0f9d58' }} />
+            <View style={{ height: 40, width: 40, backgroundColor: '#4285f4' }} />
+          </View>
           <View style={{ height: 40, width: 40, backgroundColor: '#db4437' }} />
           <View style={{ height: 40, width: 40, backgroundColor: '#0f9d58' }} />
           <View style={{ height: 40, width: 40, backgroundColor: '#4285f4' }} />
+          <Switch value={isDarkModeEnabled}
+            onValueChange={(value) => setIsDarkModelEnabled(value)}
+            style={[{ flexDirection: 'row', marginBottom: 40, alignSelf: 'flex-start' }]}
+          >
+
+          </Switch> */}
+          </View>
         </View>
-      <Container bgColor={((isDarkModeEnabled) ? '#0A0708' : '#00cec9')}>
-        <AppHeader>
+        {/* <AppHeader>
           <Text style={{
             width: '100%',
             color: 'white'
           }}>
             {((isDarkModeEnabled) ? i18n.t('dark_mode') : i18n.t('light_mode'))}
           </Text>
-        </AppHeader>
+        </AppHeader> */}
         {/* <ThemeContainer>
 
           <Label>
@@ -80,12 +106,12 @@ export default function App() {
           </Switch>
         </ThemeContainer> */}
 
-        <Switch value={isDarkModeEnabled}
+        {/* <Switch value={isDarkModeEnabled}
           onValueChange={(value) => setIsDarkModelEnabled(value)}
-          style={[{ flexDirection: 'row', marginBottom: 40 , alignSelf: 'flex-start'}]}
+          style={[{ flexDirection: 'row', marginBottom: 40, alignSelf: 'flex-start' }, rtlView]}
         >
 
-        </Switch>
+        </Switch> */}
         <TopContainer>
           <Label>{locale}</Label>
           <DateFormatted>{formattedDate}</DateFormatted>
@@ -105,12 +131,11 @@ export default function App() {
           <WeatherDesc>{i18n.t(daily?.description)}</WeatherDesc>
         </WeatherContainer>
         <BottomLabel>{i18n.t('subscribe', { price: currencySymbol + dailyPrice })}</BottomLabel>
-        <BottomLabel>
-          <BlankSpacer width={50} />
+        <Footer>
           <Button onPress={() => setLocale("en")} title="English" color="#841584" />
           <BlankSpacer width={50} />
           <Button onPress={() => setLocale("de")} title="German" color="#841584" />
-        </BottomLabel>
+        </Footer>
       </Container>
     </>
   );
@@ -128,10 +153,6 @@ const weatherIcons = {
 };
 
 
-const greeting = {
-  text: "hello",
-  temp: 2
-};
 
 
 
@@ -157,17 +178,8 @@ const dailyWeatherMock = {
 
 const Container = styled(View)`
   flex: 1;
-  align-items: center;
+  // align-items: center;
   background-color: ${props => props.bgColor};
-`;
-const ThemeContainer = styled(View)`
-  flex: 1;
-  width: 100%;
-  margin-top: 40px;
-  flex-direction: row-reverse;
-  background-color: blue;
-  align-items: center;
-
 `;
 
 const AppHeader = styled(View)`
@@ -206,6 +218,13 @@ const WeatherContainer = styled(View)`
   width: ${width}px;
   margin-top: 40px;
 `;
+const Footer = styled(View)`
+  justify-content: center;
+  align-items: center;
+  width: ${width}px;
+  margin-top: 40px;
+  flex-direction: row;
+`;
 
 const ModeLabel = styled(Text)`
   font-size: 20px;
@@ -236,15 +255,13 @@ const Greeting = styled(Text)`
 `;
 
 const BottomLabel = styled(Text)`
-margin-top: 20px;
+  margin-top: 20px;
   font-size: 16px;
   color: white;
   flex: 1;
   align-items: center;
   justify-content: center;
-
- 
-
+  text-align: center;
 `;
 
 const WeatherMain = styled(Text)`
