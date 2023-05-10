@@ -51,7 +51,6 @@ export default function App() {
 
   return (
     <>
-
       <Container bgColor={((isDarkModeEnabled) ? '#0A0708' : '#00cec9')}>
         <View style={[{ flexDirection: 'row', }, rtlView]}>
           <View style={[{ flexDirection: 'column', }]}>
@@ -66,52 +65,9 @@ export default function App() {
               onValueChange={(value) => setIsDarkModelEnabled(value)}
               style={[{ flexDirection: 'row', marginBottom: 40, alignSelf: 'flex-start' }]}
             >
-
             </Switch>
-            {/* <View style={{ height: 40, width: 40, backgroundColor: '#db4437' }} />
-            <View style={{ height: 40, width: 40, backgroundColor: '#0f9d58' }} />
-            <View style={{ height: 40, width: 40, backgroundColor: '#4285f4' }} />
-          </View>
-          <View style={{ height: 40, width: 40, backgroundColor: '#db4437' }} />
-          <View style={{ height: 40, width: 40, backgroundColor: '#0f9d58' }} />
-          <View style={{ height: 40, width: 40, backgroundColor: '#4285f4' }} />
-          <Switch value={isDarkModeEnabled}
-            onValueChange={(value) => setIsDarkModelEnabled(value)}
-            style={[{ flexDirection: 'row', marginBottom: 40, alignSelf: 'flex-start' }]}
-          >
-
-          </Switch> */}
           </View>
         </View>
-        {/* <AppHeader>
-          <Text style={{
-            width: '100%',
-            color: 'white'
-          }}>
-            {((isDarkModeEnabled) ? i18n.t('dark_mode') : i18n.t('light_mode'))}
-          </Text>
-        </AppHeader> */}
-        {/* <ThemeContainer>
-
-          <Label>
-            {((isDarkModeEnabled) ? i18n.t('dark_mode') : i18n.t('light_mode'))}
-          </Label>
-          <Switch value={isDarkModeEnabled}
-            onValueChange={(value) => setIsDarkModelEnabled(value)}
-            style={{
-              marginTop: 2,
-              alignSelf: 'flex-end',
-            }}
-          >
-          </Switch>
-        </ThemeContainer> */}
-
-        {/* <Switch value={isDarkModeEnabled}
-          onValueChange={(value) => setIsDarkModelEnabled(value)}
-          style={[{ flexDirection: 'row', marginBottom: 40, alignSelf: 'flex-start' }, rtlView]}
-        >
-
-        </Switch> */}
         <TopContainer>
           <Label>{locale}</Label>
           <DateFormatted>{formattedDate}</DateFormatted>
@@ -167,15 +123,6 @@ const dailyWeatherMock = {
   price: 123565,
 }
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     backgroundColor: '#fff',
-//     alignItems: 'center',
-//     justifyContent: 'center',
-//   },
-// });
-
 const Container = styled(View)`
   flex: 1;
   // align-items: center;
@@ -198,10 +145,6 @@ const TopContainer = styled(View)`
   align-items: center;
   // margin-top: 40px;
 `;
-// const BackContainer = styled(View)`
-//   flex: 1;
-//   align-items: left;
-// `;
 
 const Region = styled(Text)`
   font-size: 25px;
@@ -226,12 +169,6 @@ const Footer = styled(View)`
   flex-direction: row;
 `;
 
-const ModeLabel = styled(Text)`
-  font-size: 20px;
-  color: white;
-  margin-top: 30px;
-  align-items: flex-start;
-`;
 
 const Label = styled(Text)`
   font-size: 23px;
@@ -239,12 +176,7 @@ const Label = styled(Text)`
   margin-top: 2px;
 `;
 
-const City = styled(Text)`
-  font-size: 25px;
-  font-weight: bold;
-  color: white;
-  margin-top: 7px;
-`;
+
 
 const Greeting = styled(Text)`
   font-size: 30px;
