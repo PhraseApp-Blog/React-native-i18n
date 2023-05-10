@@ -13,9 +13,6 @@ export default function App() {
 
   let [locale, setLocale] = useState(Localization.locale);
   let [isDarkModeEnabled, setIsDarkModelEnabled] = useState(true);
-
-  I18nManager.allowRTL(true)
-  // I18nManager.forceRTL(true);
   const daily = dailyWeatherMock;
   const i18n = new I18n(translations)
   i18n.locale = locale
@@ -38,22 +35,13 @@ export default function App() {
 
 
   let isRTL = localProperties.textDirection === 'rtl'
-  console.log(isRTL)
-  if (isRTL) {
-    I18nManager.allowRTL(true)
-    // I18nManager.forceRTL(true);
-    I18nManager.forceRTL(true);
-    // RNRestart.Restart();
-
-  }
-  const rtlText = isRTL && { textAlign: 'right', writingDirection: 'rtl' };
   const rtlView = isRTL && { flexDirection: 'row-reverse' };
 
   return (
     <>
       <Container bgColor={((isDarkModeEnabled) ? '#0A0708' : '#00cec9')}>
         <View style={[{ flexDirection: 'row', }, rtlView]}>
-          <View style={[{ flexDirection: 'column', marginTop: 50, marginStart: 10 }]}>
+          <View style={[{ flexDirection: 'column', marginTop: 30, marginStart: 10 }]}>
             <Text style={{ color: 'white', marginStart: 10 }}>
               {((isDarkModeEnabled) ? i18n.t('dark_mode') : i18n.t('light_mode'))}
             </Text>
@@ -105,9 +93,6 @@ const weatherIcons = {
 };
 
 
-
-
-
 const dailyWeatherMock = {
   main: "clouds",
   description: "broken_clouds",
@@ -125,30 +110,11 @@ const Container = styled(View)`
   background-color: ${props => props.bgColor};
 `;
 
-const AppHeader = styled(View)`
-  flex: 1;
-  width: 100%;
-  margin-top: 40px;
-  flex-direction: row-reverse;
-  background-color: blue;
-  align-items: center;
-
-`;
-
 const TopContainer = styled(View)`
   flex: 1;
   justify-content: center;
   align-items: center;
-  // margin-top: 40px;
-`;
-
-const Region = styled(Text)`
-  font-size: 25px;
-  font-weight: bold;
-  color: white;
-`;
-const BottomContainer = styled(ScrollView)`
-  flex: 3;
+  margin-top: 20px;
 `;
 
 const WeatherContainer = styled(View)`
@@ -161,8 +127,8 @@ const Footer = styled(View)`
   justify-content: center;
   align-items: center;
   width: ${width}px;
-  margin-top: 10px;
-  margin-bottom: 30px;
+  margin-top: 2px;
+  margin-bottom: 10px;
   flex-direction: row;
 `;
 
@@ -202,7 +168,7 @@ const WeatherMain = styled(Text)`
 const DateFormatted = styled(Text)`
   font-size: 30px;
   color: white;
-  margin-top: 2px;
+  margin-top: 5px;
   margin-bottom: 2px;
 `;
 

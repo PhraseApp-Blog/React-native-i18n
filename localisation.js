@@ -29,10 +29,10 @@ const translations = {
           dark_mode: "dunkel",
           light_mode: "Licht",
     },
-    ur: {
+    ar: {
 
-        dark_mode: "نص وهمي",
-        light_mode: "نص وهمي",
+        dark_mode: "ضوء",
+        light_mode: "مظلم"
      
       
       }
