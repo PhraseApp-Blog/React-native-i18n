@@ -1,6 +1,12 @@
 {
   "expo": {
     "name": "my-project",
+    "extra": {
+      "supportsRTL": true
+    },
+    "plugins": [
+      "expo-localization"
+    ],
     "slug": "my-project",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -15,13 +21,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "ExpoLocalization_supportsRTL": true
+      },
+      "bundleIdentifier": "com.anonymous.myproject"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.myproject"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -12,46 +12,49 @@ export default function App() {
 
 
   let [locale, setLocale] = useState(Localization.locale);
-  let [isDarkModeEnabled, setIsDarkModelEnabled] = useState(true);
+  let [isDarkModeEnabled, setIsDarkModelEnabled] = useState(false);
   const daily = dailyWeatherMock;
   const i18n = new I18n(translations)
   i18n.locale = locale
   i18n.enableFallback = true
   i18n.defaultLocale = "en";
 
-  const dailyPrice = daily.price.toLocaleString(locale)
-  let localProperties = Localization.getLocales()[0]
-  let measurementSystem = localProperties.measurementSystem
-  var currentTemperature;
-  if (measurementSystem === `metric`) {
-    currentTemperature = i18n.t("current_temp_in_celsius", { degree: daily.currentInCelsius })
-  } else {
-    currentTemperature = i18n.t("current_temp_in_fahrenheit", { degree: daily.currentInFahrenheit })
-  }
-  let currencySymbol = localProperties.currencySymbol
+
+
+  const localProperties = Localization.getLocales()[0]
+  const measurementSystem = localProperties.measurementSystem
+  // var currentTemperature;
+  // if (measurementSystem === `metric`) {
+  //   currentTemperature = i18n.t("current_temp_in_celsius", { degree: daily.currentInCelsius })
+  // } else {
+  //   currentTemperature = i18n.t("current_temp_in_fahrenheit", { degree: daily.currentInFahrenheit })
+  // }
+  let currentTemperature = measurementSystem === "metric"
+    ? i18n.t("current_temp_in_celsius", { degree: daily.currentInCelsius })
+    : i18n.t("current_temp_in_fahrenheit", { degree: daily.currentInFahrenheit })
+  const currencyCode = localProperties.currencyCode
 
   const today = new Date()
-  const formattedDate = today.toLocaleDateString(locale,)
+  const formattedDate = new Intl.DateTimeFormat(locale).format(today)
 
+  const localizedPrice = new Intl.NumberFormat(locale, { style: 'currency', currency: currencyCode }).format(daily?.price)
+  // console.log(new Intl.NumberFormat(locale, { style: 'currency', currency: currencyCode }).format(number));
 
-  let isRTL = localProperties.textDirection === 'rtl'
-  const rtlView = isRTL && { flexDirection: 'row-reverse' };
+  // let isRTL = localProperties.textDirection === 'rtl'
+  // const rtlView = isRTL && { flexDirection: 'row-reverse' };
 
   return (
     <>
       <Container bgColor={((isDarkModeEnabled) ? '#0A0708' : '#00cec9')}>
-        <View style={[{ flexDirection: 'row', }, rtlView]}>
-          <View style={[{ flexDirection: 'column', marginTop: 30, marginStart: 10 }]}>
-            <Text style={{ color: 'white', marginStart: 10 }}>
-              {((isDarkModeEnabled) ? i18n.t('dark_mode') : i18n.t('light_mode'))}
-            </Text>
-            <Switch value={isDarkModeEnabled}
-              onValueChange={(value) => setIsDarkModelEnabled(value)}
-              style={[{ flexDirection: 'row', marginBottom: 40, alignSelf: 'flex-start' }]}
-            >
-            </Switch>
-          </View>
+
+        <View style={[{ flexDirection: 'column', marginTop: 30, marginStart: 10 }]}>
+          <Text style={{ color: 'white', marginStart: 10 }}>
+            {((isDarkModeEnabled) ? i18n.t('dark_mode') : i18n.t('light_mode'))}
+          </Text>
         </View>
+        <Text style={{ color: 'white', marginStart: 10 }}>
+            {((isDarkModeEnabled) ? i18n.t('dark_mode') : i18n.t('light_mode'))}
+          </Text>
         <TopContainer>
           <Label>{locale}</Label>
           <DateFormatted>{formattedDate}</DateFormatted>
@@ -70,12 +73,12 @@ export default function App() {
           <MaximumTemp>{i18n.t("temperature", { count: daily.maxInCelsius })}</MaximumTemp>
           <WeatherDesc>{i18n.t(daily?.description)}</WeatherDesc>
         </WeatherContainer>
-        <BottomLabel>{i18n.t('subscribe', { price: currencySymbol + dailyPrice })}</BottomLabel>
-        <Footer>
+        <BottomLabel>{i18n.t('subscribe', { price: localizedPrice })}</BottomLabel>
+        {/* <Footer>
           <Button onPress={() => setLocale("en")} title="English" color="#841584" />
           <BlankSpacer width={50} />
           <Button onPress={() => setLocale("de")} title="German" color="#841584" />
-        </Footer>
+        </Footer> */}
       </Container>
     </>
   );
@@ -101,7 +104,7 @@ const dailyWeatherMock = {
   maxInFahrenheit: 9.2,
   currentInCelsius: 20,
   currentInFahrenheit: 68,
-  price: 123565,
+  price: 18.99,
 }
 
 const Container = styled(View)`
