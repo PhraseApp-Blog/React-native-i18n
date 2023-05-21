@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, ScrollView, Dimensions, Button, I18nManager, Switch } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Button, I18nManager } from 'react-native';
 import styled from "styled-components/native";
 import { Fontisto } from '@expo/vector-icons';
 import * as Localization from 'expo-localization';
 import { I18n } from 'i18n-js'
 import { translations } from './localisation';
-import BlankSpacer from "react-native-blank-spacer";
+import 'intl-pluralrules'
+import { useMakePlural } from "i18n-js"
+import { pl } from "make-plural"
+import { ru } from "make-plural"
 
 export default function App() {
 
 
-  let [locale, setLocale] = useState(Localization.locale);
+  // let [locale, setLocale] = useState(Localization.locale)
+  let [locale, setLocale] = useState('ru');
   let [isDarkModeEnabled, setIsDarkModelEnabled] = useState(false);
   const daily = dailyWeatherMock;
   const i18n = new I18n(translations)
@@ -33,9 +37,57 @@ export default function App() {
     ? i18n.t("current_temp_in_celsius", { degree: daily.currentInCelsius })
     : i18n.t("current_temp_in_fahrenheit", { degree: daily.currentInFahrenheit })
   const currencyCode = localProperties.currencyCode
+  // const ret = i18n.pluralization.register("pl", new Intl.PluralRules('pl-PL').select(0));
+  // i18n.pluralization.register('pl', useMakePlural({ pluralizer: pl }));
+
+  // i18n.pluralization.register("ru", (_i18n, count) => {
+  //   const mod10 = count % 10;
+  //   const mod100 = count % 100;
+  //   let key;
+
+  //   const one = mod10 === 1 && mod100 !== 11;
+  //   const few = [2, 3, 4].includes(mod10) && ![12, 13, 14].includes(mod100);
+  //   const many =
+  //     mod10 === 0 ||
+  //     [5, 6, 7, 8, 9].includes(mod10) ||
+  //     [11, 12, 13, 14].includes(mod100);
+
+  //   if (one) {
+  //     key = "one";
+  //   } else if (few) {
+  //     key = "few";
+  //   } else if (many) {
+  //     key = "many";
+  //   } else {
+  //     key = "other";
+  //   }
+
+  //   return [key];
+  // });
+  i18n.pluralization.register("ru", useMakePlural({ pluralizer: ru }));
 
   const today = new Date()
   const formattedDate = new Intl.DateTimeFormat(locale).format(today)
+
+  console.log(i18n.t('steps', { count: 0 }))
+  console.log(i18n.t('steps', { count: 1 }))
+  console.log(i18n.t('steps', { count: 2 }))
+  console.log(i18n.t('steps', { count: 3 }))
+  console.log(i18n.t('steps', { count: 4 }))
+  console.log(i18n.t('steps', { count: 5 }))
+  console.log(i18n.t('steps', { count: 6 }))
+  console.log(i18n.t('steps', { count: 7 }))
+
+
+
+  // const plural = new Intl.PluralRules('pl-PL').select(0)
+  // console.log(new Intl.PluralRules('pl-PL').select(0))
+  // console.log(new Intl.PluralRules('pl-PL').select(1))
+  // console.log(new Intl.PluralRules('pl-PL').select(2))
+  // console.log(new Intl.PluralRules('pl-PL').select(3))
+  // console.log(new Intl.PluralRules('pl-PL').select(4))
+  // console.log(new Intl.PluralRules('pl-PL').select(5))
+  // console.log(new Intl.PluralRules('pl-PL').select(6))
 
   const localizedPrice = new Intl.NumberFormat(locale, { style: 'currency', currency: currencyCode }).format(daily?.price)
   // console.log(new Intl.NumberFormat(locale, { style: 'currency', currency: currencyCode }).format(number));
@@ -45,16 +97,20 @@ export default function App() {
 
   return (
     <>
+      {/* <View style={styles.container}>
+        <Text style={styles.paragraph}>{I18nManager.isRTL ? ' RTL' : ' LTR'}</Text>
+      </View> */}
+
       <Container bgColor={((isDarkModeEnabled) ? '#0A0708' : '#00cec9')}>
 
-        <View style={[{ flexDirection: 'column', marginTop: 30, marginStart: 10 }]}>
+        {/* <View style={[{ flexDirection: 'column', marginTop: 30, marginStart: 10 }]}>
           <Text style={{ color: 'white', marginStart: 10 }}>
             {((isDarkModeEnabled) ? i18n.t('dark_mode') : i18n.t('light_mode'))}
           </Text>
         </View>
         <Text style={{ color: 'white', marginStart: 10 }}>
-            {((isDarkModeEnabled) ? i18n.t('dark_mode') : i18n.t('light_mode'))}
-          </Text>
+          {((isDarkModeEnabled) ? i18n.t('dark_mode') : i18n.t('light_mode'))}
+        </Text> */}
         <TopContainer>
           <Label>{locale}</Label>
           <DateFormatted>{formattedDate}</DateFormatted>
@@ -188,5 +244,22 @@ const MaximumTemp = styled(Text)`
   font-size: 18px;
   color: white;
 `;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    paddingTop: 2,
+    padding: 8,
+  },
+
+  paragraph: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    textAlign: 'left',
+    width: '100%',
+    backgroundColor: 'pink',
+  },
+});
 
 
