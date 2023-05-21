@@ -18,6 +18,27 @@ const translations = {
       one: "%{count} step",
       other: "%{count} steps",
     },
+    app_title: "The Weather App"
+  },
+  ur: {
+    greeting: "ہیلو",
+    subscribe: "کے لیے پریمیم ورژن خریدیں۔ %{price}",
+    clouds: "بادل",
+    broken_clouds: "ٹوٹے ہوئے بادل",
+    maximum_temp: "زیادہ سے زیادہ درجہ حرارت: %{degree}",
+    current_temp_in_celsius: "C°%{degree}",
+    current_temp_in_fahrenheit: "%{degree}°F",
+    temperature: {
+      one: "%{count} degree",
+      other: "%{count} ڈگریاں",
+    },
+    dark_mode: "Dark",
+    light_mode: "Light",
+    steps: {
+      one: "%{count} step",
+      other: "%{count} steps",
+    },
+    app_title: "موسم کی ایپ"
   },
 
   de: {
